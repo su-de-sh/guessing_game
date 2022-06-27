@@ -10,18 +10,21 @@
     <h1>My Guessing Game</h1>
     <h2>Previous Guesses</h2>
 
-    <ul>
+    <ul id="guess-list">
+      <li></li>
       <li></li>
       <li></li>
       <li></li>
       <li></li>
     </ul>
 
-    <p>One Guess Remaining, you are close!</p>
+    <p id="my-response"></p>
 
-    <input placeholder="enter guess" type="text" />
-    <button>Submit Guess</button>
-    <button>Play Again</button>
+    <input id="number" placeholder="enter guess" type="text" />
+    <button id="submit">Submit Guess</button>
+    <button id="play-again">Play Again</button>
     <button>Hint</button>
+
+    <script src="js/guessing-game.js"></script>
   </body>
 </html>

@@ -9,7 +9,9 @@ a user clicks a button or adds a guess to the input field.
 */
 
 function generateWinningNumber() {
-  return Math.floor(Math.random() * 100 + 1);
+  let num = Math.floor(Math.random() * 100 + 1);
+  console.log(num);
+  return num;
 }
 
 function shuffle(array) {
@@ -33,6 +35,7 @@ function shuffle(array) {
 
 class Game {
   constructor() {
+    this.myStr = "";
     this.playersGuess = null;
     this.pastGuesses = [];
     this.winningNumber = generateWinningNumber();
@@ -59,21 +62,28 @@ class Game {
 
 Game.prototype.checkGuess = function () {
   if (this.pastGuesses.includes(this.playersGuess))
-    return "You have already guessed that number.";
+    this.myStr = "You have already guessed that number.";
   else {
-    if (this.playersGuess === this.winningNumber) return "You Win!";
+    if (this.playersGuess === this.winningNumber) this.myStr = "You Win!";
     else {
       this.pastGuesses.push(this.playersGuess);
       if (this.pastGuesses.length === 5) {
-        return "You Lose.";
+        this.myStr = "You Lose.";
       } else {
-        if (this.difference() < 10) return "You're burning up!";
-        else if (this.difference() < 25) return "You're lukewarm.";
-        else if (this.difference() < 50) return "You're a bit chilly.";
-        else return "You're ice cold!";
+        if (this.difference() < 10) this.myStr = "You're burning up!";
+        else if (this.difference() < 25) this.myStr = "You're lukewarm.";
+        else if (this.difference() < 50) this.myStr = "You're a bit chilly.";
+        else this.myStr = "You're ice cold!";
       }
     }
   }
+
+  document.querySelector("#my-response").innerHTML = this.myStr;
+  document.querySelector(
+    `#guess-list li:nth-child(${this.pastGuesses.length})`
+  ).innerHTML = this.playersGuess;
+
+  return this.myStr;
 };
 
 Game.prototype.provideHint = function () {
@@ -85,5 +95,21 @@ Game.prototype.provideHint = function () {
 };
 
 newGame = function () {
-  return new Game();
+  let game = new Game();
+  return game;
 };
+
+let playGame = function () {
+  let game = newGame();
+
+  let submitBtn = document.querySelector("#submit");
+
+  submitBtn.addEventListener("click", function () {
+    let guessedNumber = +document.querySelector("#number").value;
+    console.log(guessedNumber);
+    document.querySelector("#number").value = "";
+    game.playersGuessSubmission(guessedNumber);
+  });
+};
+
+playGame();
