@@ -112,4 +112,7 @@ let playGame = function () {
   });
 };
 
+document.querySelector("#play-again").addEventListener("click", function () {
+  location.reload();
+});
 playGame();
