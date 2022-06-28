@@ -10,7 +10,7 @@ a user clicks a button or adds a guess to the input field.
 
 function generateWinningNumber() {
   let num = Math.floor(Math.random() * 100 + 1);
-  console.log(num);
+
   return num;
 }
 
@@ -106,13 +106,17 @@ let playGame = function () {
 
   submitBtn.addEventListener("click", function () {
     let guessedNumber = +document.querySelector("#number").value;
-    console.log(guessedNumber);
+
     document.querySelector("#number").value = "";
     game.playersGuessSubmission(guessedNumber);
   });
+  document.querySelector("#play-again").addEventListener("click", function () {
+    location.reload();
+  });
+  document.querySelector("#hint").addEventListener("click", function () {
+    let hints = game.provideHint();
+    document.querySelector("#hints").innerHTML = hints;
+  });
 };
 
-document.querySelector("#play-again").addEventListener("click", function () {
-  location.reload();
-});
 playGame();
